@@ -1,14 +1,89 @@
 body {
     background-color: black;
     color: white;
+    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+a.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 1000;
+}
+
+.inputBoxes {
+    height: 60px;
+    width: 60px;
+    
 }
 
 #navBar {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     text-decoration: none;
     color: white;
+    padding: 5px 50px;
+    
+}
+
+.newGame {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+
+}
+
+.about {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}
+
+#inputBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+}
+
+.row {
+    padding-bottom: 5px;
+}
+.inputBoxes{
+    background-color: transparent;
+    border: 2px solid rgba(189, 195, 199, 0.35);
+    padding-bottom: 5px;
+}
+
+#keyboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 100px;
+}
+
+#keyboard button{
+    height: 35px;
+    width: 55px;
+    border-radius: 5px;
+    padding-top: 5px;
+    background-color: grey;
+    color: white;
+    text-align: center;
+}
+
+.keyboardRow {
+    padding-top: 5px;
+}
+
+hr {
+    opacity: .2;
 }
 
 a:link { text-decoration: none; }
