@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wordle Project 1</title>
+    <title>Wordle Project</title>
     <link rel="icon" type="image/x-icon" href="/images/wordle-favicon.ico">
     <link rel="stylesheet" href="./styles/style.css">
 </head>
@@ -12,7 +12,14 @@
     <nav id="navBar">
         <a href="#newGame" class="newGame">New </a>
         <a class="title">Wordle</a>
-        <a href="#about" class="about">About</a>
+        <div class="rightSide">
+            <a href="#about" class="about">About</a>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+        </div>
+        
     </nav>
     <hr>
     <br>
@@ -109,5 +116,6 @@
     </div>
     <script src="./scripts/script.js"></script>
     <script src="./scripts/gameClass.js"></script>
+    <script src="./scripts/playerClass.js"></script>
 </body>
 </html>

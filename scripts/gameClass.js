@@ -3,4 +3,16 @@ class Game {
         this.word = word;
     }
     
+    selectWord(arr){
+
+    }
+
+    splitWord(){
+
+    }
+
+    compareLetters(){
+
+    }
+
 }
