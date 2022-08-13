@@ -3,5 +3,5 @@ let wordsList =
 
 
 let wordsArray = wordsList.split(` `);
-console.log(wordsArray);
+
 
