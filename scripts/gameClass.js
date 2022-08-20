@@ -2,7 +2,7 @@ class Game {
     constructor(wordArray){
         this.wordArray = wordArray;
         this.word = '';
-        // this.guess = guess;
+        this.guess = '';
         this.numberOfGuesses = 6;
         this.lettersInWord = 5;
         this.guessesRemaining = this.numberOfGuesses;
@@ -27,11 +27,12 @@ class Game {
             if(currentBox < 6 && event.code !== 'Enter'){
                 letterInput.innerHTML = event.key;
                 guessedWord.push(event.key);
+                this.guess = guessedWord;
                 // console.log(guessedWord);
             } else {
                 return false;
             }
-            console.log(guessedWord);
+            // console.log(guessedWord);
             
         });
         
@@ -39,10 +40,10 @@ class Game {
 
     deleteLetter(){
         document.addEventListener("keyup", (event) => {
-        if (event.code == "Backspace" && currentBox > 0) {
-            let letterInput = document.querySelector('#box-' + currentBox);
-            currentBox--
-            letterInput.innerHTML = '';
+        if (event.code == "Backspace" && this.currentBox > 0) {
+            let letterInput = document.querySelector('#box-' + this.currentBox);
+            this.currentBox--
+            letterInput.innerTex = ' ';
         }
     });
     }
@@ -50,14 +51,14 @@ class Game {
     checkWord(){
         document.addEventListener("keyup", (event) => {
             if(event.code === 'Enter'){
-                console.log("Good Guess!");
+                console.log(this.guess);
             } 
         })
     }
 
     compareLetters(){
         
-        if(this.guessedWord == 5){
+        if(this.guess.length == 5){
             console.log("It's fucking working");
         }
     }
