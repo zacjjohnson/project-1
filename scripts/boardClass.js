@@ -1,7 +1,7 @@
 class Board extends Game{
-    constructor(word){
+    constructor(wordArray){
 
-        super(word);
+        super(wordArray);
     }
 
     createBoard(){
@@ -21,8 +21,40 @@ class Board extends Game{
         }
     }
 
+    inputLetters(){
+        document.addEventListener("keyup", (event) => {
+            let letterInput = document.querySelector('#box-' + this.currentBox);
+            
+                if(this.currentBox <= 5 && event.code !== 'Enter' && event.code !== 'Backspace'){
+                    this.currentBox++
+                    letterInput.innerHTML = event.key;
+                    letterInput.classList.add("addedLetters");
+                    this.guessedWord.push(event.key);
+                    this.guess = this.guessedWord;
+                } else {
+                    return false;
+            }     
+        }); 
+    }
+
+    deleteLetter(){
+        document.addEventListener("keyup", (event) => {
+            if (event.code == "Backspace") {  
+                this.currentBox--;
+                this.guess.pop();
+                console.log(this.guess);
+                console.log(this.currentBox);
+                let letterInput = document.querySelector('#box-' + this.currentBox);
+                letterInput.innerHTML = '';
+                letterInput.classList.remove('addedLetters');
+            } 
+        });
+    }
+
+
 }
 
 let gameBoard = new Board();
 gameBoard.createBoard();
-
+gameBoard.inputLetters();
+gameBoard.deleteLetter();

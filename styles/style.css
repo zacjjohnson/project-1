@@ -18,6 +18,11 @@ a.title {
     
 }
 
+.addedLetters{
+    background-color: lightgray;
+    color: black
+}
+
 .rightSide {
     display: flex;
     flex-direction: column;
