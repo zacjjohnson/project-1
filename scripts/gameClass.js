@@ -1,10 +1,10 @@
-class Game {
+class Game{
     constructor(wordArray){
         this.wordArray = wordArray;
         this.word = '';
         this.guess = '';
         this.numberOfGuesses = 6;
-        this.lettersInWord = 5;
+        this.lettersInWord = this.word.length;
         this.guessesRemaining = this.numberOfGuesses;
         this.currentBox = 0;
         this.currentRow = 0;
@@ -17,21 +17,55 @@ class Game {
         console.log(this.word);
     }
 
-    checkWord(){
-        document.addEventListener("keyup", (event) => { 
-            if(event.code == 'Enter' && this.guess.length == 5){
-                console.log('Valid Word!');
-                
+    inputLetters(){
+        document.addEventListener("keyup", (event) => {
+            let letterInput = document.querySelector('#box-' + this.currentBox);
+            
+            
+                if(this.currentBox <= 5 && event.code !== 'Enter' && event.code !== 'Backspace'){
+                    this.currentBox++
+                    letterInput.innerHTML = event.key;
+                    letterInput.classList.add("addedLetters");
+                    this.guessedWord.push(event.key);
+                    this.guess = this.guessedWord;
+                } else {
+                    return false;
+            }     
+        }); 
+    }
+
+    deleteLetter(){
+        document.addEventListener("keyup", (event) => {
+            if (event.code == "Backspace") {  
+                this.currentBox--;
+                this.guess.pop();
+                console.log(this.guess);
+                console.log(this.currentBox);
+                let letterInput = document.querySelector('#box-' + this.currentBox);
+                letterInput.innerHTML = '';
+                letterInput.classList.remove('addedLetters');
             } 
         });
     }
 
-    compareLetters(){
-        
-        if(this.guess.length == 5){
-            console.log("It's fucking working");
-        }
+    checkWord(){
+        document.addEventListener("keyup", (event) => { 
+
+            if(event.code == 'Enter'){
+                this.currentRow++;
+                this.inputLetters();
+                this.guess = this.guessedWord;
+                console.log(this.guess);
+            } 
+        });
     }
+
+    // compareLetters(){
+    //     if(this.guessedWord = this.word){
+            
+    //     }
+        
+    // }
 
     
 }
@@ -41,5 +75,7 @@ const game2 = new Game(wordsArray);
 
 
 game2.selectWord();
+game2.inputLetters();
+game2.deleteLetter();
 game2.checkWord();
-game2.compareLetters();
+// game2.compareLetters();
