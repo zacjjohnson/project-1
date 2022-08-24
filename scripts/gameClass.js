@@ -19,7 +19,9 @@ class Game{
 
     inputLetters(){
         document.addEventListener("keyup", (event) => {
+            let rowNumber = document.getElementsByClassName('row-' + this.currentRow);
             let letterInput = document.querySelector('#box-' + this.currentBox);
+            
             
             
             if(this.currentBox <= 5 && event.code !== 'Enter' && event.code !== 'Backspace'){
@@ -46,6 +48,7 @@ class Game{
             }
 
             
+            
                
         });
     }
@@ -62,19 +65,26 @@ class Game{
         
     }
 
-    // checkWord(){    
-    //         this.currentRow++;
-    //         this.inputLetters();
-    //         this.guess = this.guessedWord;
-    //         console.log(this.guess);  
-    // }
-
-    // compareLetters(){
-    //     if(this.guessedWord = this.word){
-            
-    //     }
+    checkWord(){
+        if(this.guess.length == 5){
+            this.currentRow++;
+            this.guessesRemaining--;
+            this.inputLetters();
+            console.log(this.guessesRemaining);
+            console.log(this.currentRow);
+        }
         
-    // }
+        // let letterInput = document.querySelector('#box-' + this.currentBox);
+        // console.log(letterInput)
+        // let guessString = '';
+        // let rightGuess = Array.from(this.guess);
+        // console.log(rightGuess)    
+            // this.currentRow++;
+            // this.inputLetters();
+            // this.guess = this.guessedWord;
+            // console.log(this.guess);  
+    }
+
 
     
 }

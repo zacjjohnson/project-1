@@ -23,6 +23,16 @@ a.title {
     color: black
 }
 
+.yellowBox {
+    background-color: lightgoldenrodyellow;
+    color: black;
+}
+
+.greenbox {
+    background-color: darkgreen;
+    color: black;
+}
+
 .rightSide {
     display: flex;
     flex-direction: column;
