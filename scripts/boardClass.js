@@ -7,11 +7,11 @@ class Board extends Game{
         let board = document.getElementById('gameBoard');
         for(let i = 0; i < this.numberOfGuesses; i++) {
             let row = document.createElement('div');
-            row.className = `row row-${i}`;
+            row.className = `letter-row`;
     
             for(let j = 0; j < 5; j++){
                 let box = document.createElement('div');
-                box.className = `inputBoxes`;
+                box.className = `letter-box`;
                 box.setAttribute('id', `box-${j}`);
                 box.setAttribute('maxLength', 1);
                 row.appendChild(box);

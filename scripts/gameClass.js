@@ -4,90 +4,135 @@ class Game{
         this.word = '';
         this.guess = '';
         this.numberOfGuesses = 6;
-        this.lettersInWord = this.word.length;
         this.guessesRemaining = this.numberOfGuesses;
-        this.currentBox = 0;
-        this.currentRow = 0;
+        this.nextLetter = 0;
         this.guessedWord = [];
+        this.newLine = false;
     }
-
     selectWord(){
         let selectedWord = this.wordArray[Math.floor(Math.random() * this.wordArray.length)].toLowerCase().split('');
         this.word = selectedWord;
         console.log(this.word);
     }
 
-    inputLetters(){
-        document.addEventListener("keyup", (event) => {
-            let rowNumber = document.getElementsByClassName('row-' + this.currentRow);
-            let letterInput = document.querySelector('#box-' + this.currentBox);
-            
-            
-            
-            if(this.currentBox <= 5 && event.code !== 'Enter' && event.code !== 'Backspace'){
-                    this.currentBox++
-                    letterInput.innerHTML = event.key;
-                    letterInput.classList.add("addedLetters");
-                    this.guessedWord.push(event.key);
-                    this.guess = this.guessedWord;
-                } else {
-                    return false;
-            }     
-        }); 
-    }
-
     keyboard(){
         document.addEventListener("keyup", (event) => {
-
-            if (event.code == "Backspace") {
+            let pressedKey = event.key;
+            if (pressedKey == "Backspace") {
                 this.deleteLetter();
+                console.log(this.guess);
             }
-
-            if(event.code == 'Enter'){
+            if(this.nextLetter == 5 && pressedKey == 'Enter'){
                 this.checkWord();
-            }
-
-            
-            
-               
+                console.log(this.guess)
+            }     
         });
     }
 
-    deleteLetter(){
+    inputLetters(event){
 
-        this.currentBox--;
-        this.guess.pop();
-        console.log(this.guess);
-        console.log(this.currentBox);
-        let letterInput = document.querySelector('#box-' + this.currentBox);
-        letterInput.innerHTML = '';
-        letterInput.classList.remove('addedLetters');
+        document.addEventListener("keyup", (event) => {
+            if (this.nextLetter === 5) {
+                return
+            }
+            let row = document.getElementsByClassName("letter-row")[6 - this.guessesRemaining]
+            let box = row.children[this.nextLetter];
+            
+            let pressedKey = event.key;
+            console.log({newLine: this.newLine})
+            if(this.newLine) {
+                this.guessedWord = [];
+                this.newLine = false;
+            }
+            
+            if(this.nextLetter <= 5 && pressedKey !== 'Enter' && pressedKey !== 'Backspace'){
+                    this.nextLetter++
+                    box.textContent = pressedKey
+                    box.classList.add("addedLetters");
+                    this.guessedWord.push(pressedKey);
+                    this.guess = this.guessedWord;
+             } 
+        }); 
+    };
+
+    
         
+    deleteLetter(){
+        
+        let row = document.getElementsByClassName("letter-row")[6 - this.guessesRemaining]
+        let box = row.children[this.nextLetter - 1]
+        box.textContent = ""
+        box.classList.remove('addedLetters');
+        this.guess.pop();
+        this.nextLetter--;
     }
 
     checkWord(){
-        if(this.guess.length == 5){
-            this.currentRow++;
-            this.guessesRemaining--;
-            this.inputLetters();
-            console.log(this.guessesRemaining);
-            console.log(this.currentRow);
+
+        let row = document.getElementsByClassName("letter-row")[6 - this.guessesRemaining]
+        let guessString = ''
+        let rightGuess = this.word;
+    
+        for (const val of this.guess) {
+            guessString += val
         }
         
-        // let letterInput = document.querySelector('#box-' + this.currentBox);
-        // console.log(letterInput)
-        // let guessString = '';
-        // let rightGuess = Array.from(this.guess);
-        // console.log(rightGuess)    
-            // this.currentRow++;
-            // this.inputLetters();
-            // this.guess = this.guessedWord;
-            // console.log(this.guess);  
+        for (let i = 0; i < 5; i++) {
+            let letterColor = ''
+            let box = row.children[i]
+            let letter = this.guess[i]
+            
+            let letterPosition = rightGuess.indexOf(this.guess[i])
+
+            console.log({row, guessString, rightGuess, letterColor, box, letter, letterPosition, guess: this.guess});
+            // is letter in the correct guess
+            if (letterPosition === -1) {
+                letterColor = 'grey'
+            } else {
+               
+                if (letter === rightGuess[i]) {
+                    // shade green 
+                    letterColor = 'green'
+                } else {
+                    // shade box yellow
+                    letterColor = 'yellow'
+                }
+    
+                // rightGuess[letterPosition] = "#"
+            }
+    
+            let delay = 250 * i
+            setTimeout(()=> {
+                //shade box
+                box.style.backgroundColor = letterColor
+                
+            }, delay)
+        }
+
+        console.log({guessString, rightGuess})
+
+    
+        if (guessString === rightGuess.join('')) {
+            setTimeout(() => alert("You Win!"), 50)            
+            this.guessesRemaining = 0
+            return
+        } else {
+            this.guessesRemaining -= 1;
+            this.newLine = true;
+            this.guess = [];
+            this.nextLetter = 0;
+    
+            if (this.guessesRemaining === 0) {
+                alert("Game over!")
+                alert(`The right word was: "${this.word.join('')}"`)
+            }
+        }   
     }
 
 
     
 }
+
 
 const game2 = new Game(wordsArray);
 
