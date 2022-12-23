@@ -130,6 +130,7 @@ class Game{
 
     
         if (guessString === rightGuess.join('')) {
+            box.style.backgroundColor = letterColor;
             setTimeout(() => alert("You Win!"), 1000)            
             this.guessesRemaining = 0
             return
