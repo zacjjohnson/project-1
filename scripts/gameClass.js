@@ -12,7 +12,7 @@ class Game{
     selectWord(){
         let selectedWord = this.wordArray[Math.floor(Math.random() * this.wordArray.length)].toLowerCase().split('');
         this.word = selectedWord;
-        
+        console.log(this.word);
     }
 
     keyboard(){
@@ -20,29 +20,12 @@ class Game{
             let pressedKey = event.key;
             if (pressedKey == "Backspace") {
                 this.deleteLetter();
-                
+                console.log(this.guess);
             }
             if(this.nextLetter == 5 && pressedKey == 'Enter'){
                 this.checkWord();
-                
+                console.log(this.guess)
             }     
-        });
-
-        document.getElementById('keyboard').addEventListener('click', (e) => {
-            const target = e.target
-            
-            if (!target.classList.contains("keyboard-button")) {
-                return
-            }
-            let row = document.getElementsByClassName("letter-row")[6 - this.guessesRemaining]
-            let box = row.children[this.nextLetter];
-             let key = target.textContent
-
-            if (key === "Del") {
-                key = "Backspace"
-            } 
-
-    document.dispatchEvent(new KeyboardEvent("keyup", {'key': key}))
         });
     }
 
@@ -56,7 +39,7 @@ class Game{
             let box = row.children[this.nextLetter];
             
             let pressedKey = event.key;
-            
+            console.log({newLine: this.newLine})
             if(this.newLine) {
                 this.guessedWord = [];
                 this.newLine = false;
@@ -101,7 +84,7 @@ class Game{
             
             let letterPosition = rightGuess.indexOf(this.guess[i])
 
-            
+            console.log({row, guessString, rightGuess, letterColor, box, letter, letterPosition, guess: this.guess});
             // is letter in the correct guess
             if (letterPosition === -1) {
                 letterColor = 'grey'
@@ -126,12 +109,11 @@ class Game{
             }, delay)
         }
 
-        
+        console.log({guessString, rightGuess})
 
     
         if (guessString === rightGuess.join('')) {
-            box.style.backgroundColor = letterColor;
-            setTimeout(() => alert("You Win!"), 1000)            
+            setTimeout(() => alert("You Win!"), 50)            
             this.guessesRemaining = 0
             return
         } else {
@@ -159,6 +141,3 @@ const game2 = new Game(wordsArray);
 game2.selectWord();
 game2.keyboard();
 game2.inputLetters();
-
-``
-// game2.compareLetters();
